@@ -21,7 +21,8 @@ namespace JWT_Simple.Migrations
                     Token = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ResfeshToken = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Role = table.Column<string>(type:"nvarchar(255)", nullable: false)
                 },
                 constraints: table =>
                 {

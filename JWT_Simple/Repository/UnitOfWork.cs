@@ -6,21 +6,32 @@ namespace JWT_Simple.Repository
     public class UnitOfWork : IUnitOfWork
     {
         private readonly JwtContext _jwtContext;
-        public UnitOfWork(JwtContext jwtContext)
+
+
+        public IUserRepository user { get; }
+
+        public UnitOfWork(JwtContext jwtContext, IUserRepository user)
         {
             _jwtContext = jwtContext;
+            this.user = user;
         }
-        public void Dispose()
-        {
-            Dispose(true);
-        }
+
         public int Save()
         {
             return _jwtContext.SaveChanges();
         }
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
         protected virtual void Dispose(bool disposing)
         {
-            if (disposing) Dispose(disposing);
+            if (disposing)
+            {
+                _jwtContext.Dispose();
+            }
         }
     }
 }
