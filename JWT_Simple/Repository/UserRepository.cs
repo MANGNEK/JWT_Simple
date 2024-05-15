@@ -25,4 +25,12 @@ public class UserRepository :GenericRepository<AccountUser>,IUserRepository
         if(user == null) return new AccountUser();
         return user;
     }
+
+    public async Task SaveToken(string token, int Id)
+    {
+        var user = await _jwtContext.Set<AccountUser>().FirstOrDefaultAsync(e => e.Id == Id);
+        if (user == null) return;
+        user.Token = token;
+        await _jwtContext.SaveChangesAsync();
+    }
 }

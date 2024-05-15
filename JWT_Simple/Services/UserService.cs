@@ -26,11 +26,14 @@ public class UserService : IUserService
         var userInfo = await _userRepository.GetUserName(request.Username);
         if (userInfo == null) return new AuthenticateReponse();
         if (userInfo.HashPassword != HashPass.MD5Hash(request.Password)) return new AuthenticateReponse();
+        var token = _tokenService.CreateToken(userInfo.Adapt<AppUser>());
+        await _userRepository.SaveToken(token, userInfo.Id);
         AuthenticateReponse reponse = new AuthenticateReponse() { 
-        Token = _tokenService.CreateToken(userInfo.Adapt<AppUser>()),
+        Token = token,
         Id = userInfo.Id,
         Username = userInfo.UserName,
         LastName = userInfo.Name,
+
         };
         return reponse;
     }

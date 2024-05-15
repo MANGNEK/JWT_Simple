@@ -5,4 +5,5 @@ public interface IUserRepository : IGenericRepository<AccountUser>
 {
     Task<bool> Checkuser(string user);
     Task<AccountUser> GetUserName(string username);
+    Task SaveToken(string token, int Id);
 }
