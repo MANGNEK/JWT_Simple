@@ -33,7 +33,6 @@ public class UserService : IUserService
         Id = userInfo.Id,
         Username = userInfo.UserName,
         LastName = userInfo.Name,
-
         };
         return reponse;
     }
