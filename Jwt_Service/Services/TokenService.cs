@@ -1,5 +1,6 @@
 ﻿using JWT_Simple.InterfaceService;
 using JWT_Simple.ModelsAuthen;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -11,6 +12,7 @@ public class TokenService : ITokenService
 {
     public readonly IConfiguration Configuration;
     public readonly SymmetricSecurityKey _key;
+
     public TokenService(IConfiguration configuration)
     {
         Configuration = configuration;

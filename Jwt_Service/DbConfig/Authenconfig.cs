@@ -2,6 +2,8 @@
 using JWT_Simple.ModelsAuthen;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
@@ -18,7 +20,7 @@ public static class Authenconfig
             {
                 In = ParameterLocation.Header,
                 Description = "Please fill token in here",
-                Name =" Authorrization",
+                Name = " Authorrization",
                 Type = SecuritySchemeType.Http,
                 BearerFormat = "JWT",
                 Scheme = "Bearer"
@@ -66,11 +68,9 @@ public static class Authenconfig
                 ValidAudience = configuration.GetValue<string>("JWT:Audience"),
                 ValidateIssuerSigningKey = true,
                 IssuerSigningKey = new SymmetricSecurityKey(
-                System.Text.Encoding.UTF8.GetBytes(configuration.GetValue<string>("JWT:SigningKey")?? "keyduphongnekhmmmmmmmm")
+                System.Text.Encoding.UTF8.GetBytes(configuration.GetValue<string>("JWT:SigningKey") ?? "keyduphongnekhmmmmmmmm")
                 )
             };
         });
-
-
     }
 }
