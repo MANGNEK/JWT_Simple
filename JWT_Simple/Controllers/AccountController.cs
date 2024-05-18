@@ -1,7 +1,8 @@
-﻿using JWT_Simple.InterfaceService;
+﻿using JWT_Simple.Interface;
+using JWT_Simple.InterfaceService;
 using JWT_Simple.Reponse;
 using JWT_Simple.Request;
-using Mapster;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JWT_Simple.Controllers;
@@ -30,6 +31,7 @@ public class AccountController : Controller
         if (result == null) return BadRequest("Login Fail");
         return Ok(result);
     }
+    [Authorize]
     [HttpGet]
     [Route("getAll")]
     public async Task<List<UserReponse>> GetAll()

@@ -1,3 +1,4 @@
+using Jwt_Service.MiddleWare;
 using JWT_Simple.DbConfig;
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -20,6 +21,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseAuthentication();
 
 app.UseAuthorization();
 app.UseCors(options => options
@@ -28,7 +30,7 @@ app.UseCors(options => options
     .AllowCredentials()
     .SetIsOriginAllowed(origin => true)
 ); ;
-
+app.UseMiddleware<JwtMiddleWare>();
 app.MapControllers();
 
 app.Run();
