@@ -23,8 +23,9 @@ public class TokenService : ITokenService
     {
         var claims = new List<Claim>
         {
-            new Claim(JwtRegisteredClaimNames.Email ,appUser.Email),
-            new Claim(JwtRegisteredClaimNames.GivenName, appUser.UserName),
+            new Claim(JwtRegisteredClaimNames.NameId, appUser.Id)
+,           new Claim(JwtRegisteredClaimNames.Email ,appUser.Email),
+            new Claim("UserName", appUser.UserName),
             new Claim(JwtRegisteredClaimNames.GivenName, appUser.Role),
         };
 
@@ -41,5 +42,18 @@ public class TokenService : ITokenService
         var tokenHandler = new JwtSecurityTokenHandler();
         var token = tokenHandler.CreateToken(tokenDescriptor);
         return tokenHandler.WriteToken(token);
+    }
+
+    public Task<string> RefeshToken(string Token)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<bool> VerifyToken(string token)
+    {
+        throw new NotImplementedException();
+        //var jwtTokenHandler = new JwtSecurityTokenHandler();
+        //var tokenReader = jwtTokenHandler.ReadJwtToken(token);
+        //var id = tokenReader.
     }
 }
