@@ -33,7 +33,10 @@ public class AccountController : Controller
         if (result == null) return BadRequest("Login Fail");
         return Ok(result);
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 22ced7866065db9077054f057b067140baf0ec02
     [Authorize]
     [HttpGet]
     [Route("getAll")]
