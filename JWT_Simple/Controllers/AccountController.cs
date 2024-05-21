@@ -10,6 +10,7 @@ namespace JWT_Simple.Controllers;
 public class AccountController : Controller
 {
     private readonly IUserService _userService;
+
     public AccountController(IUserService userService)
     {
         _userService = userService;
@@ -17,20 +18,25 @@ public class AccountController : Controller
 
     [HttpPost]
     [Route("register")]
-    public async Task<IActionResult> Resgister([FromBody]RegisterRequest request)
+    public async Task<IActionResult> Resgister([FromBody] RegisterRequest request)
     {
         var resuilt = await _userService.Register(request);
         if (!resuilt) return BadRequest("Some Thing Wrong !!!");
         return Ok("Resgister Success!!");
     }
+
     [HttpPost]
     [Route("login")]
-    public async Task<IActionResult> Login([FromBody]AuthenticateRequest request)
+    public async Task<IActionResult> Login([FromBody] AuthenticateRequest request)
     {
         var result = await _userService.Login(request);
         if (result == null) return BadRequest("Login Fail");
         return Ok(result);
     }
+<<<<<<< HEAD
+
+=======
+>>>>>>> 22ced7866065db9077054f057b067140baf0ec02
     [Authorize]
     [HttpGet]
     [Route("getAll")]
@@ -38,18 +44,24 @@ public class AccountController : Controller
     {
         return await _userService.GetAll();
     }
+
+    [Authorize]
     [HttpGet]
     [Route("getUser")]
     public async Task<UserReponse> GetUser(int id)
     {
         return await _userService.GetById(id);
     }
+
+    [Authorize]
     [HttpPatch]
     [Route("update")]
-    public async Task<bool> UpdateUser([FromBody]UpdateUser user)
+    public async Task<bool> UpdateUser([FromBody] UpdateUser user)
     {
         return await _userService.Update(user);
     }
+
+    [Authorize(Policy = "Admin")]
     [HttpDelete]
     [Route("delete")]
     public async Task<bool> Delete(int id)
